@@ -11,7 +11,7 @@ const server = http.createServer((req, res) => {
         }
 
         const xmlParser = new XMLParser();
-        const parsedData = xmlParser.parse(data);
+        const parsedData = xmlParser.parse(data); //обробкa XML-даних, які були прочитані з файлу 
 
         let maxRate = 0;
         parsedData.exchange.currency.forEach(currency => {
@@ -23,14 +23,14 @@ const server = http.createServer((req, res) => {
         const xmlBuilder = new XMLBuilder();
         const xmlResponse = xmlBuilder.build({ data: { max_rate: maxRate.toString() } });
 
-        res.writeHead(200, { 'Content-Type': 'application/xml' });
+        res.writeHead(200, { 'Content-Type': 'application/xml' }); //встановлюють HTTP-статус відповіді (200-"OK")
         res.write(xmlResponse);
         res.end();
     });
 });
 
 const host = "localhost";
-const port = 8000;
+const port = 3000;
 server.listen(port, host, () => {
     console.log(`Server is running on http://${host}:${port}`);
 });
